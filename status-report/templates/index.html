@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSV Analyzer</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+      #drop-area {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        margin: 20px auto;
+        width: 50%;
+        cursor: pointer;
+      }
+      #result {
+        margin-top: 20px;
+        text-align: left;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>CSV Analyzer</h1>
+    <div id="drop-area">
+      <p>Drag & Drop CSV File Here or Click to Upload</p>
+      <input type="file" id="file-input" accept=".csv" hidden />
+    </div>
+    <div id="result"></div>
+
+    <script>
+      const dropArea = document.getElementById("drop-area");
+      const fileInput = document.getElementById("file-input");
+      const resultDiv = document.getElementById("result");
+
+      dropArea.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", handleFile);
+
+      function handleFile() {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        fetch("/upload", { method: "POST", body: formData })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.error) {
+              resultDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+            } else {
+              resultDiv.innerHTML = `<h3>CSV Analysis:</h3><pre>${JSON.stringify(
+                data.summary,
+                null,
+                2
+              )}</pre>`;
+            }
+          })
+          .catch((error) => console.error("Error:", error));
+      }
+    </script>
+  </body>
+</html>

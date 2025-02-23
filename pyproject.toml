@@ -1,0 +1,11 @@
+[project]
+name = "Status Report"
+version = "2.0.0"
+description = "EEBC report builder"
+dependencies = [
+    "flask",
+]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
