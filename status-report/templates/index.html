@@ -25,42 +25,48 @@
     </style>
   </head>
   <body>
-    <h1>CSV Analyzer</h1>
+    <h1>Status Report</h1>
     <div id="drop-area">
       <p>Drag & Drop CSV File Here or Click to Upload</p>
-      <input type="file" id="file-input" accept=".csv" hidden />
+      <input type="file" id="file-input" accept=".csv" hidden multiple />
     </div>
-    <div id="result"></div>
+    <div id="error"></div>
+    <div id="provider"></div>
+    <div id="staff"></div>
 
     <script>
       const dropArea = document.getElementById("drop-area");
       const fileInput = document.getElementById("file-input");
-      const resultDiv = document.getElementById("result");
+      const errorDiv = document.getElementById("error");
+      const providerDiv = document.getElementById("provider");
+      const staffDiv = document.getElementById("staff");
 
       dropArea.addEventListener("click", () => fileInput.click());
       fileInput.addEventListener("change", handleFile);
 
       function handleFile() {
-        const file = fileInput.files[0];
-        if (!file) return;
+        const files = fileInput.files;
+        if (!files) return;
 
-        const formData = new FormData();
-        formData.append("file", file);
+        // Process each file
+        Array.from(files).forEach((file, index) => {
+          const formData = new FormData();
+          formData.append("file", file);
 
-        fetch("/upload", { method: "POST", body: formData })
-          .then((response) => response.json())
-          .then((data) => {
-            if (data.error) {
-              resultDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
-            } else {
-              resultDiv.innerHTML = `<h3>CSV Analysis:</h3><pre>${JSON.stringify(
-                data.summary,
-                null,
-                2
-              )}</pre>`;
-            }
-          })
-          .catch((error) => console.error("Error:", error));
+          fetch("/upload", { method: "POST", body: formData })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.error) {
+                errorDiv.innerHTML = `<p style="color: red;">${data.error}</p>`;
+              }
+              if (data.providerData) {
+                providerDiv.innerHTML = `<h3>Provider:</h3><div>${data.providerData}</div>`;
+              } else if (data.staffData) {
+                staffDiv.innerHTML = `<h3>Staff:</h3><div>${data.staffData}</div>`;
+              }
+            })
+            .catch((error) => console.error("Error:", error));
+        });
       }
     </script>
   </body>

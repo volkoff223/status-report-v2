@@ -2,8 +2,8 @@ from flask import Flask, request, render_template, jsonify
 import pandas as pd
 import os
 
-import staff_data
-import provider_data
+import modules.provider_data as provider_data
+import modules.staff_data as staff_data
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
@@ -21,18 +21,19 @@ def upload_file():
     file = request.files["file"]
     if file.filename == "" or not file.filename.endswith(".csv"):
         return jsonify({"error": "Invalid file format"}), 400
-
+    
     filepath = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(filepath)
 
     try:
         if file.filename == 'HRSSA_Staff_Data.csv':
-            summary = staff_data.cleanStaffData(filepath)
-            return jsonify({"summary": summary})
+            staffData = staff_data.cleanStaffData(filepath)
+            # return jsonify({"staffData": staffData})
+            return {"staffData": staffData}
 
         elif file.filename == 'HRSSA_Provider_Data.csv':
-            summary = provider_data.cleanProviderData(filepath)
-            return jsonify({"summary": summary})
+            providerData = provider_data.cleanProviderData(filepath)
+            return jsonify({"providerData": providerData})
         else:
             return jsonify ({"error": "An error occured with the " + file.filename + " file."}), 400
     except:

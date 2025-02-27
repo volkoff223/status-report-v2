@@ -9,6 +9,5 @@ def cleanProviderData(filepath):
 
   # Show only these columns
   df = df[['Inspection Type', 'Date Inspection Expires']]
-
   htmlTbl = df.to_html(index=False)
   return htmlTbl
