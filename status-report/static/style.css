@@ -1,0 +1,17 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+#drop-area {
+  border: 2px dashed #ccc;
+  padding: 20px;
+  margin: 20px auto;
+  width: 50%;
+  cursor: pointer;
+}
+#result {
+  margin-top: 20px;
+  text-align: left;
+  white-space: pre-wrap;
+}

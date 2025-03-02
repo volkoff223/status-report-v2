@@ -20,7 +20,7 @@ def upload_file():
 
     file = request.files["file"]
     if file.filename == "" or not file.filename.endswith(".csv"):
-        return jsonify({"error": "Invalid file format"}), 400
+        return jsonify({"error": file.filename + " is an invalid file format."}), 400
     
     filepath = os.path.join(UPLOAD_FOLDER, file.filename)
     file.save(filepath)
@@ -35,7 +35,7 @@ def upload_file():
             providerData = provider_data.cleanProviderData(filepath)
             return jsonify({"providerData": providerData})
         else:
-            return jsonify ({"error": "An error occured with the " + file.filename + " file."}), 400
+            return {"error": file.filename + " is not a recognized file name."}, 400
     except:
         return jsonify({"error": "An error occured with the file upload process"}), 500
     finally:
