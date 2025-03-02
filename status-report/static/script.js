@@ -5,6 +5,7 @@ const dialogMessage = document.getElementById("dialog-message");
 const closeButton = document.getElementById("close-btn");
 const providerDiv = document.getElementById("provider");
 const staffDiv = document.getElementById("staff");
+const immDiv = document.getElementById("imm");
 
 dropArea.addEventListener("click", () => fileInput.click());
 fileInput.addEventListener("change", handleFile);
@@ -35,6 +36,8 @@ function handleFile() {
           providerDiv.innerHTML = `<h3>Provider:</h3><div>${data.providerData}</div>`;
         } else if (data.staffData) {
           staffDiv.innerHTML = `<h3>Staff:</h3><div>${data.staffData}</div>`;
+        } else if (data.immData) {
+          immDiv.innerHTML = `<h3>Immunization Alerts:</h3><div>${data.immData}</div>`;
         }
       })
       .catch((error) => console.error("Error:", error));

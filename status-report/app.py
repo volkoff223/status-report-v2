@@ -4,6 +4,7 @@ import os
 
 import modules.provider_data as provider_data
 import modules.staff_data as staff_data
+import modules.imm_data as imm_data
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
@@ -33,11 +34,15 @@ def upload_file():
 
         elif file.filename == 'HRSSA_Provider_Data.csv':
             providerData = provider_data.cleanProviderData(filepath)
-            return jsonify({"providerData": providerData})
+            return {"providerData": providerData}
+        
+        elif file.filename == 'HRSSA_Child_Licensing_Immunization.csv':
+            immData = imm_data.cleanImmData(filepath)
+            return {"immData": immData}
         else:
             return {"error": file.filename + " is not a recognized file name."}, 400
-    except:
-        return jsonify({"error": "An error occured with the file upload process"}), 500
+    except Exception as error:
+        return jsonify({"error:", error}), 500
     finally:
         os.remove(filepath)
 if __name__ == "__main__":
