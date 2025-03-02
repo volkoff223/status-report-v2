@@ -2,9 +2,11 @@ from flask import Flask, request, render_template, jsonify
 import pandas as pd
 import os
 
-import modules.provider_data as provider_data
-import modules.staff_data as staff_data
-import modules.imm_data as imm_data
+import modules.provider as provider_data
+import modules.staff as staff_data
+import modules.imm as imm_data
+import modules.bgreport as bgreport_data
+import modules.balance as balance_data
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
@@ -39,6 +41,13 @@ def upload_file():
         elif file.filename == 'HRSSA_Child_Licensing_Immunization.csv':
             immData = imm_data.cleanImmData(filepath)
             return {"immData": immData}
+        
+        elif file.filename == 'Background_Check_Report.csv':
+            bgdata = bgreport_data.cleanBGData(filepath)
+            return {"bgdata" : bgdata}
+        elif file.filename == 'HRSSA_Ledger_Transactions.csv':
+            balanceData = balance_data.cleanBalanceData(filepath)
+            return {"balanceData": balanceData}
         else:
             return {"error": file.filename + " is not a recognized file name."}, 400
     except Exception as error:

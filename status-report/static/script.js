@@ -6,6 +6,8 @@ const closeButton = document.getElementById("close-btn");
 const providerDiv = document.getElementById("provider");
 const staffDiv = document.getElementById("staff");
 const immDiv = document.getElementById("imm");
+const bgDiv = document.getElementById("bg");
+const balanceDiv = document.getElementById("balance");
 
 dropArea.addEventListener("click", () => fileInput.click());
 fileInput.addEventListener("change", handleFile);
@@ -38,6 +40,10 @@ function handleFile() {
           staffDiv.innerHTML = `<h3>Staff:</h3><div>${data.staffData}</div>`;
         } else if (data.immData) {
           immDiv.innerHTML = `<h3>Immunization Alerts:</h3><div>${data.immData}</div>`;
+        } else if (data.bgdata) {
+          bgDiv.innerHTML = `<h3>Background Checks:</h3><div>${data.bgdata}</div>`;
+        } else if (data.balanceData) {
+          balanceDiv.innerHTML = `<h3>Outstanding Balances:</h3><div>${data.balanceData}</div>`;
         }
       })
       .catch((error) => console.error("Error:", error));

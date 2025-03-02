@@ -15,3 +15,53 @@ body {
   text-align: left;
   white-space: pre-wrap;
 }
+/* Professional Table Styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+  background-color: #009879;
+  color: white;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #dddddd;
+}
+
+tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+tbody tr:hover {
+  background-color: #f1fff8;
+}
+
+/* Additional styles for specific data */
+.missing {
+  color: rgb(255, 0, 0);
+  font-style: italic;
+}
+
+.expired {
+  background-color: #ffe0e0;
+}
+
+.expiring-soon {
+  background-color: #fff2cc;
+}
