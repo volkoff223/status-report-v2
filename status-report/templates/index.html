@@ -14,9 +14,35 @@
 
     <h1>Status Report</h1>
     <div id="drop-area">
-      <p>Click to Upload</p>
-      <input type="file" id="file-input" accept=".csv" hidden multiple />
+      <h3>Upload Files</h3>
+      <label for="file-input">Click to Upload</label>
+      <input type="file" id="file-input" accept=".csv" multiple />
     </div>
+
+    <div id="image-selector">
+      <h3>Choose an Image</h3>
+      <label for="image-dropdown">Select an Image</label>
+      <select id="image-dropdown">
+        <option value="">Choose an image</option>
+        <!-- The images will be dynamically populated by JavaScript -->
+      </select>
+
+      <input
+        type="file"
+        id="image-upload"
+        accept="image/*"
+        style="display: none"
+      />
+      <button id="image-upload-btn">Upload New Image</button>
+    </div>
+    <div id="selected-image-container">
+      <img
+        id="selected-image"
+        alt="Selected Image"
+        style="max-width: 300px; display: none"
+      />
+    </div>
+
     <div class="tbl_div" id="provider"></div>
     <div class="tbl_div" id="staff"></div>
     <div class="tbl_div" id="bg"></div>

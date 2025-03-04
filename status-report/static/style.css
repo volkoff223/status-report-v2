@@ -15,6 +15,7 @@ body {
   text-align: left;
   white-space: pre-wrap;
 }
+
 /* Professional Table Styling */
 table {
   width: 100%;
@@ -64,4 +65,59 @@ tbody tr:hover {
 
 .expiring-soon {
   background-color: #fff2cc;
+}
+
+/* Print Specific Styles */
+@media print {
+  /* Hide drop area and image selector when printing */
+  #drop-area,
+  #image-selector {
+    display: none !important;
+  }
+
+  /* Ensure content uses full width and doesn't have extra padding */
+  body {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* Ensure table divs print cleanly */
+  .tbl_div {
+    page-break-inside: avoid;
+    margin: 10px 0;
+    box-shadow: none;
+    border: 1px solid #ccc;
+  }
+
+  /* Remove background colors for clean print */
+  .tbl_div,
+  body {
+    background-color: transparent !important;
+  }
+
+  /* Ensure headings are clear */
+  h1,
+  .tbl_div h3 {
+    color: #000;
+    border-bottom: 1px solid #000;
+  }
+}
+/* Selected Image Container */
+#selected-image-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+#selected-image {
+  max-width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 auto; /* Ensure image is centered */
 }

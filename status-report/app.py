@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 import pandas as pd
 import os
+from werkzeug.utils import secure_filename
 
 import modules.provider as provider_data
 import modules.staff as staff_data
@@ -10,11 +11,57 @@ import modules.balance as balance_data
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
+IMG_FOLDER = "static/img"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(IMG_FOLDER, exist_ok=True)
+
+# Allowed image extensions
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'bmp'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route("/")
 def index():
     return render_template("index.html")
+
+@app.route("/list-images")
+def list_images():
+    try:
+        images = [f for f in os.listdir(IMG_FOLDER) if f.lower().endswith(tuple(f'.{ext}' for ext in ALLOWED_EXTENSIONS))]
+        return jsonify(images)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route("/upload-image", methods=["POST"])
+def upload_image():
+    if "image" not in request.files:
+        return jsonify({"error": "No image uploaded"}), 400
+
+    image = request.files["image"]
+    
+    if image.filename == "":
+        return jsonify({"error": "No selected file"}), 400
+
+    if image and allowed_file(image.filename):
+        # Secure the filename to prevent directory traversal
+        filename = secure_filename(image.filename)
+        
+        # Ensure unique filename if needed
+        base, ext = os.path.splitext(filename)
+        counter = 1
+        while os.path.exists(os.path.join(IMG_FOLDER, filename)):
+            filename = f"{base}_{counter}{ext}"
+            counter += 1
+        
+        # Save the file
+        filepath = os.path.join(IMG_FOLDER, filename)
+        image.save(filepath)
+        
+        return jsonify({"message": "Image uploaded successfully", "filename": filename})
+    
+    return jsonify({"error": "Invalid file type"}), 400
 
 @app.route("/upload", methods=["POST"])
 def upload_file():
@@ -31,7 +78,6 @@ def upload_file():
     try:
         if file.filename == 'HRSSA_Staff_Data.csv':
             staffData = staff_data.cleanStaffData(filepath)
-            # return jsonify({"staffData": staffData})
             return {"staffData": staffData}
 
         elif file.filename == 'HRSSA_Provider_Data.csv':
@@ -54,5 +100,6 @@ def upload_file():
         return jsonify({"error:", error}), 500
     finally:
         os.remove(filepath)
+
 if __name__ == "__main__":
     app.run(debug=True)

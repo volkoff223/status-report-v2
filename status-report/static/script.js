@@ -8,6 +8,10 @@ const staffDiv = document.getElementById("staff");
 const immDiv = document.getElementById("imm");
 const bgDiv = document.getElementById("bg");
 const balanceDiv = document.getElementById("balance");
+const imageDropdown = document.getElementById("image-dropdown");
+const selectedImage = document.getElementById("selected-image");
+const imageUploadInput = document.getElementById("image-upload");
+const imageUploadBtn = document.getElementById("image-upload-btn");
 
 dropArea.addEventListener("click", () => fileInput.click());
 fileInput.addEventListener("change", handleFile);
@@ -15,6 +19,80 @@ fileInput.addEventListener("change", handleFile);
 // "Close" button closes the dialog
 closeButton.addEventListener("click", () => {
   dialog.close();
+});
+
+// Fetch and populate image dropdown
+function populateImageDropdown() {
+  imageDropdown.innerHTML = '<option value="">Choose an image</option>'; // Reset dropdown
+
+  fetch("/list-images")
+    .then((response) => response.json())
+    .then((images) => {
+      images.forEach((image) => {
+        const option = document.createElement("option");
+        option.value = image;
+        option.textContent = image;
+        imageDropdown.appendChild(option);
+      });
+    })
+    .catch((error) => console.error("Error fetching images:", error));
+}
+
+populateImageDropdown();
+
+// Handle image dropdown selection
+imageDropdown.addEventListener("change", (event) => {
+  const selectedImageName = event.target.value;
+  if (selectedImageName) {
+    selectedImage.src = `/static/img/${selectedImageName}`;
+    selectedImage.style.display = "block";
+  } else {
+    selectedImage.style.display = "none";
+  }
+});
+
+// Image Upload Button Click Handler
+imageUploadBtn.addEventListener("click", () => {
+  imageUploadInput.click();
+});
+
+// Image Upload Input Change Handler
+imageUploadInput.addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const formData = new FormData();
+    formData.append("image", file);
+
+    fetch("/upload-image", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          dialogMessage.innerText = data.error;
+          dialog.showModal();
+        } else {
+          // Refresh dropdown and select the newly uploaded image
+          populateImageDropdown();
+
+          // Select the new image in dropdown
+          const newImageOption = Array.from(imageDropdown.options).find(
+            (option) => option.value === data.filename
+          );
+          if (newImageOption) {
+            imageDropdown.value = data.filename;
+            selectedImage.src = `/static/img/${data.filename}`;
+            selectedImage.style.display = "block";
+          }
+        }
+      })
+      .catch((error) => {
+        console.error("Error uploading image:", error);
+        dialogMessage.innerText = "Error uploading image";
+        dialog.showModal();
+      });
+  }
 });
 
 function handleFile() {
