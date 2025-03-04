@@ -4,11 +4,11 @@ body {
   padding: 20px;
 }
 #drop-area {
-  border: 2px dashed #ccc;
+  /* border: 2px dashed #ccc;
   padding: 20px;
   margin: 20px auto;
   width: 50%;
-  cursor: pointer;
+  cursor: pointer; */
 }
 #result {
   margin-top: 20px;
