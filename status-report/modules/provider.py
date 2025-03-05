@@ -10,7 +10,7 @@ def cleanProviderData(filepath):
   df = df[['Inspection Type', 'Date Inspection Expires']]
 
   # Convert all dates to proper format
-  df['Date Inspection Expires'] = pd.to_datetime(df['Date Inspection Expires'])
+  df['Date Inspection Expires'] = pd.to_datetime(df['Date Inspection Expires']).dt.date
 
   htmlTbl = df.to_html(index=False)
   return htmlTbl
