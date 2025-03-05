@@ -12,7 +12,7 @@ def cleanBGData(filepath):
 
   for col in df:
     df[col] = pd.to_datetime(df[col], errors='coerce')
-    df[col] = df[col].dt.strftime('%m-%d-%Y').fillna('Missing')
+    df[col] = df[col].dt.strftime('%m/%d/%Y').fillna('Missing')
 
 
   htmlTbl = df.to_html()

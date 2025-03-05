@@ -13,7 +13,7 @@ def cleanStaffData(filepath):
     df = df[df['Staff Name'] != 'Staff, HRSSA']
     
     # Extract relevant columns
-    df = df[['Staff Name', 'Medical Evaluation Expiration', 'TB Test Completion',
+    df = df[['Staff Name', 'TB Test Completion',
              'Course Name', 'Training Expiration Date']]
     
     # Pivot the data to create separate columns for each training type
