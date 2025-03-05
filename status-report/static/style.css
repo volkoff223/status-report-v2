@@ -108,7 +108,6 @@ tbody tr:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f8f9fa;
   padding: 15px;
   border-radius: 8px;
 }
@@ -120,4 +119,56 @@ tbody tr:hover {
   border-radius: 6px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin: 0 auto; /* Ensure image is centered */
+}
+
+/* File Input Styling */
+#file-input {
+  display: none; /* Hide the default file input */
+}
+
+/* Custom label for file input */
+#drop-area label {
+  display: inline-block;
+  background-color: #007bff;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect on the file upload button */
+#drop-area label:hover {
+  background-color: #0056b3;
+}
+
+/* Styling the dropdown */
+#image-dropdown {
+  width: 100%;
+  padding: 10px;
+  margin: 20px;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  transition: border-color 0.3s ease;
+}
+
+/* Focus effect for the dropdown */
+#image-dropdown:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Styling for dropdown options */
+#image-dropdown option {
+  padding: 10px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+/* When the dropdown is hovered over */
+#image-dropdown:hover {
+  border-color: #007bff;
 }

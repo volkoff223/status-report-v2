@@ -2,6 +2,8 @@
 
 seed-data/
 
+static/img
+
 uploads/
 
 *.pyc
