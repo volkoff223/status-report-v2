@@ -14,7 +14,7 @@ const selectedImage = document.getElementById("selected-image");
 const imageUploadInput = document.getElementById("image-upload");
 const imageUploadBtn = document.getElementById("image-upload-btn");
 
-dropArea.addEventListener("click", () => fileInput.click());
+//dropArea.addEventListener("click", () => fileInput.click());
 fileInput.addEventListener("change", handleFile);
 
 // "Close" button closes the dialog
