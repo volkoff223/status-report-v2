@@ -8,6 +8,7 @@ const staffDiv = document.getElementById("staff");
 const immDiv = document.getElementById("imm");
 const bgDiv = document.getElementById("bg");
 const balanceDiv = document.getElementById("balance");
+const enrolDiv = document.getElementById("enrol");
 const imageDropdown = document.getElementById("image-dropdown");
 const selectedImage = document.getElementById("selected-image");
 const imageUploadInput = document.getElementById("image-upload");
@@ -122,6 +123,8 @@ function handleFile() {
           bgDiv.innerHTML = `<h3>Background Checks:</h3><div>${data.bgdata}</div>`;
         } else if (data.balanceData) {
           balanceDiv.innerHTML = `<h3>Outstanding Balances:</h3><div>${data.balanceData}</div>`;
+        } else if (data.enrolData) {
+          enrolDiv.innerHTML = `<h3>Enrollment:</h3><div>${data.enrolData}</div>`;
         }
       })
       .catch((error) => console.error("Error:", error));

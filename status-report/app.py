@@ -8,6 +8,7 @@ import modules.staff as staff_data
 import modules.imm as imm_data
 import modules.bgreport as bgreport_data
 import modules.balance as balance_data
+import modules.enrollment as enrol_data
 
 app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
@@ -91,9 +92,14 @@ def upload_file():
         elif file.filename == 'Background_Check_Report.csv':
             bgdata = bgreport_data.cleanBGData(filepath)
             return {"bgdata" : bgdata}
+        
         elif file.filename == 'HRSSA_Ledger_Transactions.csv':
             balanceData = balance_data.cleanBalanceData(filepath)
             return {"balanceData": balanceData}
+        
+        elif file.filename == 'HRSSA_Enrollment.csv':
+            enrolData = enrol_data.cleanEnrolData(filepath)
+            return {"enrolData": enrolData}
         else:
             return {"error": file.filename + " is not a recognized file name."}, 400
     except Exception as error:
