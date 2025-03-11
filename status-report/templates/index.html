@@ -4,48 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Status Report</title>
-    <link rel="stylesheet" href="../static/style.css" />
+    <link rel="stylesheet" href="../static/test.css" />
   </head>
   <body>
-    <dialog id="dialog">
-      <button id="close-btn" autofocus>Close</button>
-      <p id="dialog-message">An unexpected error has occured.</p>
-    </dialog>
+    <div class="container">
+      <dialog id="dialog">
+        <button id="close-btn" autofocus>Close</button>
+        <p id="dialog-message">An unexpected error has occured.</p>
+      </dialog>
 
-    <h1>Status Report</h1>
-    <div id="drop-area">
-      <label for="file-input">Upload Files</label>
-      <input type="file" id="file-input" accept=".csv" multiple />
+      <div id="headerDiv">
+        <img id="header" src="../static/img/Header EEBC.jpg" alt="EEBC Logo" />
+      </div>
+
+      <h1>Status Report</h1>
+      <div id="file-input-div">
+        <label id="file-input-label" for="file-input">Upload Files</label>
+        <input type="file" id="file-input" accept=".csv" multiple />
+      </div>
+
+      <div id="image-selector">
+        <select id="image-dropdown">
+          <option value="">Choose an image</option>
+          <!-- The images will be dynamically populated by JavaScript -->
+        </select>
+
+        <input
+          type="file"
+          id="image-upload"
+          accept="image/*"
+          style="display: none"
+        />
+        <button id="image-upload-btn">Upload New Image</button>
+      </div>
+      <div id="selected-image-container">
+        <img
+          id="selected-image"
+          alt="Selected Image"
+          style="max-width: 300px; display: none"
+        />
+      </div>
+
+      <div class="tbl_div" id="provider"></div>
+      <div class="tbl_div" id="staff"></div>
+      <div class="tbl_div" id="bg"></div>
+      <div class="tbl_div" id="imm"></div>
+      <div class="tbl_div" id="enrol"></div>
+      <div class="tbl_div" id="balance"></div>
+
+      <div id="footerDiv">
+        <img
+          id="footer"
+          src="../static/img/Footer EEBC.jpg"
+          alt="EEBC Footer"
+        />
+      </div>
     </div>
-
-    <div id="image-selector">
-      <select id="image-dropdown">
-        <option value="">Choose an image</option>
-        <!-- The images will be dynamically populated by JavaScript -->
-      </select>
-
-      <input
-        type="file"
-        id="image-upload"
-        accept="image/*"
-        style="display: none"
-      />
-      <button id="image-upload-btn">Upload New Image</button>
-    </div>
-    <div id="selected-image-container">
-      <img
-        id="selected-image"
-        alt="Selected Image"
-        style="max-width: 300px; display: none"
-      />
-    </div>
-
-    <div class="tbl_div" id="provider"></div>
-    <div class="tbl_div" id="staff"></div>
-    <div class="tbl_div" id="bg"></div>
-    <div class="tbl_div" id="imm"></div>
-    <div class="tbl_div" id="enrol"></div>
-    <div class="tbl_div" id="balance"></div>
 
     <script src="../static/script.js"></script>
   </body>

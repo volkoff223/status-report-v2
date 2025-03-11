@@ -1,0 +1,134 @@
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+}
+
+.container {
+  flex: 1; /* Pushes the footer down */
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: space-between;
+}
+
+.tbl_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#file-input {
+  display: none;
+}
+
+#file-input-div {
+  align-self: center;
+}
+
+#file-input-label {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#image-selector {
+  margin-top: 10px;
+  align-self: center;
+}
+
+#selected-image-container {
+  align-self: center;
+}
+
+#footerDiv {
+  display: flex;
+}
+
+#footerDiv img {
+  width: 100%; /* Make the image span full width */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove bottom spacing issue */
+}
+
+table {
+  width: auto;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+thead tr {
+  background-color: #007fbe;
+  color: white;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 12px 15px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+tbody tr:hover {
+  background-color: #f1fff8;
+}
+
+/* Additional styles for specific data */
+.missing {
+  color: rgb(255, 0, 0);
+  font-style: italic;
+}
+
+.expired {
+  background-color: #ffe0e0;
+}
+
+.expiring-soon {
+  background-color: #fff2cc;
+}
+
+/* Print Specific Styles */
+@media print {
+  /* Hide drop area and image selector when printing */
+  #file-input-div,
+  #image-selector {
+    display: none !important;
+  }
+  .tbl_div {
+    transform: scale(0.8);
+    page-break-inside: avoid;
+  }
+
+  #footerDiv {
+    position: fixed;
+    bottom: 0;
+    z-index: -1;
+  }
+  h3 {
+    font-size: xx-large;
+  }
+}

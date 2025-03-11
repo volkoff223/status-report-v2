@@ -1,19 +1,51 @@
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the page fills the viewport */
+  margin: 0;
 }
-#drop-area {
-  /* border: 2px dashed #ccc;
-  padding: 20px;
-  margin: 20px auto;
-  width: 50%;
-  cursor: pointer; */
+
+h1 {
+  padding-top: 100px;
 }
+
+#image-selector {
+  display: flex;
+  flex-direction: column; /* Keeps elements inside stacked */
+  align-items: center; /* Centers horizontally */
+  justify-content: center; /* Centers vertically if needed */
+  margin: 0 auto; /* Centers the div itself */
+  text-align: center; /* Ensures text inside is also centered */
+  width: fit-content; /* Adjust width based on content */
+}
+
+#header {
+  position: absolute; /* Positions the image relative to the page */
+  top: 0;
+  left: 0;
+  width: auto; /* Keeps the image's aspect ratio */
+  height: auto; /* Ensures it doesn't get stretched */
+  z-index: -1;
+}
+
+#footer {
+  position: sticky;
+  width: 100%;
+  height: auto;
+  margin-top: auto; /* Pushes it to the bottom when there's extra space */
+  z-index: -1;
+}
+
 #result {
   margin-top: 20px;
   text-align: left;
   white-space: pre-wrap;
+}
+
+#footerDiv {
+  margin-top: auto;
 }
 
 /* Professional Table Styling */
@@ -26,7 +58,7 @@ table {
 }
 
 thead tr {
-  background-color: #009879;
+  background-color: #007fbe;
   color: white;
   text-align: left;
 }
@@ -129,13 +161,14 @@ tbody tr:hover {
 /* Custom label for file input */
 #drop-area label {
   display: inline-block;
-  background-color: #007bff;
+  background-color: #007fbe;
   color: #fff;
   padding: 12px 20px;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1.1rem;
   transition: background-color 0.3s ease;
+  font-weight: 900;
 }
 
 /* Hover effect on the file upload button */
@@ -171,4 +204,23 @@ tbody tr:hover {
 /* When the dropdown is hovered over */
 #image-dropdown:hover {
   border-color: #007bff;
+}
+
+@page {
+  margin: 1in; /* Adjust page margins */
+  size: A4 portrait; /* Set paper size */
+}
+
+@media print {
+  #header {
+    position: running(header);
+    width: 100%;
+    text-align: center;
+  }
+
+  #footerDiv {
+    position: running(footer);
+    width: 100%;
+    text-align: center;
+  }
 }
