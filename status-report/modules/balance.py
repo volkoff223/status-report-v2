@@ -15,7 +15,7 @@ def cleanBalanceData(filepath):
     df = df[df['Child Name'] != '']
 
     # Display only negitive balances
-    df = df[df['Current Balance'] < 0]
+    df = df[df['Current Balance'] > 0]
 
     # Convert to HTML table
     htmlTbl = df.to_html(index=False)
